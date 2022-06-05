@@ -1,6 +1,7 @@
 import monero
 
 from monero.seed import Seed
+import binascii
 
 s = Seed()
 
@@ -24,7 +25,9 @@ print(f"{phrase}")
 #Generating with random bytes from system
 import os
 hex = os.urandom(32)
-
+# hex = binascii.b2a_hex(hex)
+hex = hex.hex()
+s = Seed(hex)
 phrase = s.phrase
 
 print(f"The seed Phrase:")
@@ -46,7 +49,9 @@ for i in range(0,99):
 entropy_bytes = hashlib.sha256(dice_rolls.encode()).digest()
 
 hex = entropy_bytes
-
+# hex = binascii.b2a_hex(hex)
+hex = hex.hex()
+s = Seed(hex)
 phrase = s.phrase
 
 print(f"The seed Phrase:")
