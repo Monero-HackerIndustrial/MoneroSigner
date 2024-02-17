@@ -7,7 +7,7 @@
 
 * [Project Summary](#project-summary)
 * [Shopping List](#shopping-list)
-~* [Manual Installation Instructions](#manual-installation-instructions)~
+* [Manual Installation Instructions](#manual-installation-instructions)
 
 
 ---------------
@@ -73,6 +73,90 @@ Notes:
 * Choose the Waveshare screen carefully; make sure to purchase the model that has a resolution of 240x240 pixels
 
 ---------------
+
+# manual installation instructions
+
+**This is for developer use only atm**
+The current setup assumes you are a developer and as such as enable an ssh server. This is done to help enable a developemnt enviroment from a remote ssh session. 
+This is done to help developers quickly test and restest new changes without requiring reflashing the sd card. For obvious reasons this should not be used to protect real funds as a production build
+would not have networking enabled nor an ssh server (especially one locked down with a simple user:pass) 
+
+The developer instructions assume you are using a raspberry pi model other than a zero. I chosse to develop on a raspberry pi instead of a pi zero because of the hardwired ethernet cable. 
+
+The manual installation is different than seedsigner. Developer builds target rasbian based on ddebian version 12.0 (codenamed bookworm). 
+
+## 1. Download Pi OS lite from the rasbian images.
+https://downloads.raspberrypi.com/raspios_lite_armhf/images/raspios_lite_armhf-2023-12-11/2023-12-11-raspios-bookworm-armhf-lite.img.xz
+Raspberry Pi OS Lite
+Release date: December 11th 2023
+System: 32-bit
+Kernel version: 6.1
+Debian version: 12 (bookworm)
+sha256sum: 5df1850573c5e1418f70285c96deea2cfa87105cca976262f023c49b31cdd52b  2023-12-11-raspios-bookworm-armhf-lite.img.xz
+
+## 2. Install the image to an sd card 
+Us your prefered application such as DD or Disks utility to write the image to the sd card. (This will overide the whole sd card)
+
+## 3. (For remote dev) Enable and configure SSH server 
+
+Create a blank ```ssh``` file in the boot partion of your sd card. This enables the ssh server on your pi. 
+
+Next you need to create a user password for the user. (By default there is no password set for the pi user. Without a password ssh can't log in). 
+Instructions taken from here: 
+https://www.raspberrypi.com/documentation/computers/configuration.html#configuring-a-user
+**Configure a user manually**
+At the root of your SD card, create a file named userconf.txt.
+
+This file should contain a single line of text, consisting of <username>:<password>: your desired username, followed immediately by a colon, followed immediately by an encrypted representation of the password you want to use.
+
+
+For example. If you want to use the password ```raspberry``` for the user pi you would run the following command 
+```echo 'raspberry' | openssl passwd -6 -stdin``` 
+Our example output: ```$6$HdV3bbnqr0hwKEfI$h3kjQVvgLeNz24kr5n4LFq9eMsnJ1H0QRCgnUrYolZWnSIj.aqK9wLKj3fJNn0jaL9VMiXbI9oH8vbhgoTeRK1``` (keep in mind that running the command again would give you a different string because of the random salt added)
+Then we would take that output and insert it into the serconf.txt ```<password>``` placeholder. 
+The userconf.txt file would look like so: 
+
+```pi:$6$HdV3bbnqr0hwKEfI$h3kjQVvgLeNz24kr5n4LFq9eMsnJ1H0QRCgnUrYolZWnSIj.aqK9wLKj3fJNn0jaL9VMiXbI9oH8vbhgoTeRK1```
+### 4. Updates and dependencies 
+once you ssh onto the box pleas run these coommands:
+```
+sudo apt-get update
+sudo apt-get upgrade
+```
+You might need to enable the spi inteface through raspi-config:
+Type : ```sudo raspi-config```
+Use the menu to go to : Inerface Options -> SPI -> Enable (It asks you if you want to enable. Select "yes"). 
+
+
+Raspberry Pi OS Bullseye and later images by default run the libcamera camera stack, which is required for Picamera2.
+You can check that libcamera is working by opening a command window and typing:
+
+```rpicam-hello```
+You will get text output from your camera in the terminal. If you get an error your camera physical connection might not be connected or you might need to troubleshoot the hardware. 
+
+### 5. Install required python packages 
+
+```
+sudo apt-get install python3-pip
+sudo apt-get install python3-pil
+sudo apt-get install python3-numpy
+sudo pip3 install spidev
+```
+### 6. Clone the repository to the pi 
+
+``` git clone https://github.com/Monero-HackerIndustrial/MoneroSigner```
+
+
+
+
+
+2. 
+3. 
+4.   https://downloads.raspberrypi.com/raspios_lite_armhf/release_notes.txt
+
+
+5. 
+6. https://downloads.raspberrypi.com/raspios_lite_armhf/release_notes.txt
 
 ---
 
