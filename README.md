@@ -7,11 +7,7 @@
 
 * [Project Summary](#project-summary)
 * [Shopping List](#shopping-list)
-* [Software Installation](#software-installation)
-  * [Verifying the Software](#verifying-the-software)
-* [Enclosure Designs](#enclosure-designs)
-* [SeedQR Printable Templates](#seedqr-printable-templates)
-* [Manual Installation Instructions](#manual-installation-instructions)
+~* [Manual Installation Instructions](#manual-installation-instructions)~
 
 
 ---------------
