@@ -144,20 +144,20 @@ sudo pip3 install spidev
 ```
 ### 6. Clone the repository to the pi 
 
-``` git clone https://github.com/Monero-HackerIndustrial/MoneroSigner```
+```
+git clone https://github.com/Monero-HackerIndustrial/MoneroSigner
+cd MoneroSigner 
+
+```
+### 7. Run the appliaction 
+
+To start the application:
+cd into the src folder:
+``` cd src```
+
+Then run it with python 
+```python3 main.py```
 
 
-
-
-
-2. 
-3. 
-4.   https://downloads.raspberrypi.com/raspios_lite_armhf/release_notes.txt
-
-
-5. 
-6. https://downloads.raspberrypi.com/raspios_lite_armhf/release_notes.txt
-
----
 
 ---
