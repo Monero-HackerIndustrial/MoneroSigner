@@ -1,3 +1,5 @@
+# This is an experimental project still being developed. 
+
 # Build an offline, airgapped Monero signing device for less than $50!
 ## This is a monero fork of the OG seedsigner  https://github.com/SeedSigner/seedsigner
 ![Image of SeedSigners in Open Pill Enclosures](docs/img/Open_Pill_Star.JPG)![Image of SeedSigner in an Orange Pill enclosure](docs/img/Orange_Pill.JPG)
